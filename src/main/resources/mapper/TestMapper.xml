@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.seecoder.courselearning.mapperservice.test.TestMapper">
+  <resultMap id="BaseResultMap" type="cn.seecoder.courselearning.po.test.Test">
+    <id column="tid" jdbcType="INTEGER" property="tid" />
+    <result column="tname" jdbcType="VARCHAR" property="testname" />
+    <result column="total_marks" jdbcType="INTEGER" property="total_marks" />
+    <result column="course_id" jdbcType="INTEGER" property="cid" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="starttime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="finishtime" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from test
+    where tid = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.seecoder.courselearning.po.test.Test" useGeneratedKeys="true" keyProperty="tid">
+    insert into test (tid, tname, total_marks,
+      course_id, start_time, end_time,
+      state)
+    values (#{tid,jdbcType=INTEGER}, #{testname,jdbcType=VARCHAR}, #{total_marks,jdbcType=INTEGER},
+      #{cid,jdbcType=INTEGER}, #{starttime,jdbcType=TIMESTAMP}, #{finishtime,jdbcType=TIMESTAMP},
+      #{state,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.seecoder.courselearning.po.test.Test">
+    update test
+    set tname = #{testname,jdbcType=VARCHAR},
+      total_marks = #{total_marks,jdbcType=INTEGER},
+      course_id = #{cid,jdbcType=INTEGER},
+      start_time = #{starttime,jdbcType=TIMESTAMP},
+      end_time = #{finishtime,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=VARCHAR}
+    where tid = #{tid,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select t.tid, t.tname, t.total_marks, t.course_id, t.start_time, t.end_time, t.state
+    from test t
+    where t.tid = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByCourseId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select t.tid, t.tname, t.total_marks, t.course_id, t.start_time, t.end_time, t.state
+    from test t
+    where t.course_id = #{courseId,jdbcType=INTEGER}
+  </select>
+</mapper>

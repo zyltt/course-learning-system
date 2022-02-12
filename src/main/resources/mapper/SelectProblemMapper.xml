@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.seecoder.courselearning.mapperservice.test.SelectProblemMapper">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from select_problem
+    where tid=#{testId,jdbcType=INTEGER} and pid=#{problemId,jdbcType=INTEGER};
+  </delete>
+  <insert id="insert">
+    insert into select_problem (tid,pid)
+    values (#{testId,jdbcType=INTEGER}, #{problemId,jdbcType=INTEGER});
+  </insert>
+  <delete id="deleteByProblemId" parameterType="java.lang.Integer">
+    delete from select_problem
+    where pid=#{problemId,jdbcType=INTEGER};
+  </delete>
+  <delete id="deleteByTestId" parameterType="java.lang.Integer">
+    delete from select_problem
+    where tid=#{testId,jdbcType=INTEGER};
+  </delete>
+  <select id="selectByTestId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select s.pid
+    from select_problem s
+    where s.tid = #{testId,jdbcType=INTEGER}
+  </select>
+</mapper>

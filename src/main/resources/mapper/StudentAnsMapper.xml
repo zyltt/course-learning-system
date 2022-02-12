@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.seecoder.courselearning.mapperservice.test.StudentAnsMapper">
+  <resultMap id="BaseResultMap" type="cn.seecoder.courselearning.po.test.StudentAns">
+    <id column="user_id" jdbcType="INTEGER" property="uid" />
+    <id column="pid" jdbcType="INTEGER" property="pid" />
+    <id column="tid" jdbcType="INTEGER" property="tid" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+    <result column="answer" jdbcType="VARCHAR" property="answer" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from student_answer
+    where user_id = #{uid,jdbcType=INTEGER} and pid = #{pid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.seecoder.courselearning.po.test.StudentAns">
+    insert into student_answer (user_id, pid, tid, state, answer)
+    values (#{uid,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER},
+    #{tid,jdbcType=INTEGER},#{state,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR})
+  </insert>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select s.user_id, s.pid, s.tid, s.state, s.answer
+    from student_answer s
+    where s.user_id = #{uid,jdbcType=INTEGER} and s.pid = #{pid,jdbcType=INTEGER} and s.tid = #{tid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByProblemId" parameterType="java.lang.Integer">
+    delete from student_answer
+    where pid = #{pid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByTestId" parameterType="java.lang.Integer">
+    delete from student_answer
+    where tid = #{tid,jdbcType=INTEGER}
+  </delete>
+</mapper>

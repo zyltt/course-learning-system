@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.seecoder.courselearning.mapperservice.test.TestAttendMapper">
+  <resultMap id="BaseResultMap" type="cn.seecoder.courselearning.po.test.TestAttend">
+  <id column="tid" jdbcType="INTEGER" property="tid" />
+  <id column="user_id" jdbcType="INTEGER" property="uid" />
+  <result column="get_score" jdbcType="INTEGER" property="get_score" />
+  </resultMap>
+  <delete id="deleteByTestId" parameterType="java.lang.Integer">
+    delete from test_attend
+    where tid=#{tid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.seecoder.courselearning.po.test.TestAttend" >
+    insert into test_attend (tid, user_id, get_score)
+    values (#{tid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER},
+      #{get_score,jdbcType=INTEGER})
+  </insert>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select t.tid ,t.user_id ,t.get_score
+    from test_attend t
+    where t.tid = #{tid,jdbcType=INTEGER} and t.user_id = #{uid,jdbcType=INTEGER}
+  </select>
+  <select id="CountByPrimaryKey" resultType="java.lang.Integer">
+    select count(*) as count from test_attend
+    where tid = #{tid,jdbcType=INTEGER} and user_id = #{uid,jdbcType=INTEGER}
+  </select>
+</mapper>
